@@ -9,8 +9,8 @@ public class CubeManager : MonoBehaviour
     [SerializeField] private GameObject _prefab;
     [SerializeField] private InputField inputField;
     [SerializeField] private Button _button;
-    [SerializeField] private float offset;
     [SerializeField] private AnimationCurve _curve;
+    [SerializeField] private float offset;
     private float target = 1f;
     private float movingFloat = 0f;
     public List<GameObject> _cubes = new List<GameObject>();
@@ -18,10 +18,13 @@ public class CubeManager : MonoBehaviour
     private List<Vector3> _listPos = new List<Vector3>();
     void Start()
     {
-        inputField.onSubmit.AddListener(CreateCubes);
+        //Events are triggered whenever input field or button is sumbitted/clicked 
+        inputField.onSubmit.AddListener(CreateCubes);   
         _button.onClick.AddListener(SortCubes);
     }
     
+    // Creates clones of cubes and assigns each of them new positions by X axis,
+    //all created game objects are added in the list 
     public void CreateCubes(string text)
     {
         float posX=_prefab.transform.position.x;
@@ -37,6 +40,12 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    public void SortCubes()
+    {
+        _sortedCubes = QuickSort(_cubes);
+        StartCoroutine(MoveCubesSequentially());
+    }
+
     public IEnumerator MoveCubes(Vector3 a, Vector3 b, GameObject cube, Action<bool> onComplete)
     {
         movingFloat = 0f;
@@ -50,12 +59,6 @@ public class CubeManager : MonoBehaviour
         }
 
         onComplete?.Invoke(true); 
-    }
-
-    public void SortCubes()
-    {
-        _sortedCubes = QuickSort(_cubes);
-        StartCoroutine(MoveCubesSequentially());
     }
 
     public IEnumerator MoveCubesSequentially()
