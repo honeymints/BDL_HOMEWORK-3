@@ -12,19 +12,20 @@ public class Cube : MonoBehaviour
 
     private void Awake()
     {
+        //initialize color and scale randomly
         RandomizeColor();
         RandomizeScale();
     }
 
-    private void RandomizeScale()
-    {
-        _color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f));
-        transform.localScale = new Vector3(transform.localScale.x, _scaleY, transform.localScale.z);
-    }
-
     private void RandomizeColor()
     {
-        _scaleY = Random.Range(1f, 30f);
+        _color= Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         gameObject.GetComponent<Renderer>().material.color=_color;
+    }
+
+    private void RandomizeScale()
+    {
+        _scaleY = Random.Range(1f, 30f);
+        transform.localScale = new Vector3(transform.localScale.x, _scaleY, transform.localScale.z);
     }
 }
