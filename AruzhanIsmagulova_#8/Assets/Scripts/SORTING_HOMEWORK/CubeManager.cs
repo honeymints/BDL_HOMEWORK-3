@@ -18,6 +18,7 @@ public class CubeManager : MonoBehaviour
     public List<GameObject> _cubes = new List<GameObject>();
     private List<GameObject> _sortedCubes = new List<GameObject>();
     private List<Vector3> _listPos = new List<Vector3>();
+    
     void Start()
     {
         //Events are triggered whenever input field or button is sumbitted/clicked 
